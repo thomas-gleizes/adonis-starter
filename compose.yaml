@@ -1,0 +1,26 @@
+services:
+  adonis:
+    image: node:23.9.0-slim
+    container_name: adonis
+    working_dir: /app
+    volumes:
+      - ./:/app
+    command: bash -c "yarn install && yarn dev"
+    ports:
+      - "3333:3333"
+      - "24678:24678"
+
+  postgres:
+    image: postgres:15.12
+    container_name: postgres
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_USER: adonis
+      POSTGRES_PASSWORD: adonis
+      POSTGRES_DB: app
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+volumes:
+  postgres_data:

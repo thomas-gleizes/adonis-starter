@@ -1,0 +1,21 @@
+@url = http://localhost:3333
+
+### store event
+POST {{url}}/events
+Accept: application/json
+Content-Type: application/json
+
+{
+  "title": "{{$random.book.title}}",
+  "description": "{{$random.shakespeare.kingRichardIIIQuote}}",
+  "status": "publish",
+  "category": "workshop",
+  "city": "{{$random.address.city}}",
+  "location": "{{$random.address.fullAddress}}",
+  "startAt": "2025-05-21",
+  "endAt": "2025-05-31",
+  "feature": false,
+  "capacity": {{$random.integer(5, 100)}},
+  "price": {{$random.float(0, 100)}}
+
+}
