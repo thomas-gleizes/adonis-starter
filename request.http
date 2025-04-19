@@ -1,0 +1,12 @@
+###
+GET http://localhost:3333/api/animes
+
+###
+POST http://localhost:3333/api/animes
+Content-Type: application/json
+Accept: application/json
+
+{
+  "title": "My Hero Academia",
+  "description": "A superhero anime"
+}
