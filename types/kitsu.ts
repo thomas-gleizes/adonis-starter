@@ -17,6 +17,29 @@ export type KitsuAnime = {
   relationships: KitsuAnimeRelationships
 }
 
+export type KitsuMedia = {
+  tiny: string
+  large: string
+  small: string
+  medium: string
+  original: string
+  meta: {
+    dimensions: {
+      tiny: { width: number; height: number }
+      large: { width: number; height: number }
+      small: { width: number; height: number }
+      medium: { width: number; height: number }
+    }
+  }
+}
+
+export type KitsuTitles = {
+  en: string
+  en_jp: string
+  ja_jp: string
+  fr?: string
+}
+
 export type KitsuAnimeAttributes = {
   createdAt: string
   updatedAt: string
@@ -24,11 +47,7 @@ export type KitsuAnimeAttributes = {
   synopsis: string
   description: string
   coverImageTopOffset: number
-  titles: {
-    en: string
-    en_jp: string
-    ja_jp: string
-  }
+  titles: KitsuTitles
   canonicalTitle: string
   abbreviatedTitles: string[]
   averageRating: string
@@ -45,34 +64,8 @@ export type KitsuAnimeAttributes = {
   subtype: string
   status: string
   tba: string | null
-  posterImage: {
-    tiny: string
-    large: string
-    small: string
-    medium: string
-    original: string
-    meta: {
-      dimensions: {
-        tiny: { width: number; height: number }
-        large: { width: number; height: number }
-        small: { width: number; height: number }
-        medium: { width: number; height: number }
-      }
-    }
-  }
-  coverImage: {
-    tiny: string
-    large: string
-    small: string
-    original: string
-    meta: {
-      dimensions: {
-        tiny: { width: number; height: number }
-        large: { width: number; height: number }
-        small: { width: number; height: number }
-      }
-    }
-  }
+  posterImage: KitsuMedia
+  coverImage: KitsuMedia
   episodeCount: number
   episodeLength: number
   totalLength: number
