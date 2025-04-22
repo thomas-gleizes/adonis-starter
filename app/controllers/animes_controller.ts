@@ -1,41 +1,24 @@
 import type { HttpContext } from '@adonisjs/core/http'
+import { AnimeService } from '#services/anime_service'
+import { inject } from '@adonisjs/core'
 
+@inject()
 export default class AnimesController {
-  index() {
-    return [
-      {
-        id: 1,
-        title: 'Naruto',
-        description:
-          'A story about a young ninja who seeks recognition from his peers and dreams of becoming the Hokage.',
-      },
-      {
-        id: 2,
-        title: 'One Piece',
-        description:
-          'A story about a group of pirates searching for the ultimate treasure known as One Piece.',
-      },
-      {
-        id: 3,
-        title: 'Attack on Titan',
-        description:
-          'A story about humanity fighting against giant humanoid creatures known as Titans.',
-      },
-      {
-        id: 4,
-        title: 'Tokyo Ghoul',
-        description:
-          'A story about ghouls and humans coexisting in a world where ghouls eat humans.',
-      },
-    ]
+  constructor(private animeService: AnimeService) {}
+
+  index({ request }: HttpContext) {
+    const query = request.qs()
+
+    console.log('Query', query)
+
+    return this.animeService
+      .findAll()
+      .limit(query.limit ?? 10)
+      .offset(query.offset ?? 0)
   }
 
   show({ params }: HttpContext) {
-    return {
-      id: +params.id,
-      title: 'Tokyo Ghoul',
-      description: 'A story about ghouls and humans coexisting in a world where ghouls eat humans.',
-    }
+    return this.animeService.findById(params.id)
   }
 
   create({ request }: HttpContext) {

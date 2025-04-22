@@ -45,50 +45,25 @@ export default class ProcessAnimes extends BaseCommand {
         loop = results.length > 0
 
         for (const item of results) {
-          console.log(
-            item.id,
-            item.slug,
-            item.content.attributes.startDate,
-            item.content.attributes.endDate
-          )
-
-          await database
-            .insert(animes)
-            .values({
-              kitsuId: item.kitsuId,
-              slug: item.slug,
-              title: item.content.attributes.canonicalTitle,
-              titles: item.content.attributes.titles,
-              startDate: new Date(item.content.attributes.startDate) ?? null,
-              endDate: new Date(item.content.attributes.endDate) ?? null,
-              subType: item.content.attributes.subtype,
-              showType: item.content.attributes.showType,
-              status: item.content.attributes.status,
-              episodesCount: item.content.attributes.episodeCount,
-              episodeLength: item.content.attributes.episodeLength,
-              totalLength: item.content.attributes.totalLength,
-              ageRating: item.content.attributes.ageRating,
-              synopsis: item.content.attributes.synopsis,
-              description: item.content.attributes.description,
-              posters: item.content.attributes.posterImage,
-              covers: item.content.attributes.coverImage,
-            })
-            .onConflictDoUpdate({
-              titles: item.content.attributes.titles,
-              startDate: new Date(item.content.attributes.startDate) ?? null,
-              endDate: new Date(item.content.attributes.endDate) ?? null,
-              subType: item.content.attributes.subtype,
-              showType: item.content.attributes.showType,
-              status: item.content.attributes.status,
-              episodesCount: item.content.attributes.episodeCount,
-              episodeLength: item.content.attributes.episodeLength,
-              totalLength: item.content.attributes.totalLength,
-              ageRating: item.content.attributes.ageRating,
-              synopsis: item.content.attributes.synopsis,
-              description: item.content.attributes.description,
-              posters: item.content.attributes.posterImage,
-              covers: item.content.attributes.coverImage,
-            })
+          await database.insert(animes).values({
+            kitsuId: item.kitsuId,
+            slug: item.slug,
+            title: item.content.attributes.canonicalTitle,
+            titles: item.content.attributes.titles,
+            startDate: new Date(item.content.attributes.startDate) ?? null,
+            endDate: new Date(item.content.attributes.endDate) ?? null,
+            subType: item.content.attributes.subtype,
+            showType: item.content.attributes.showType,
+            status: item.content.attributes.status,
+            episodesCount: item.content.attributes.episodeCount,
+            episodeLength: item.content.attributes.episodeLength,
+            totalLength: item.content.attributes.totalLength,
+            ageRating: item.content.attributes.ageRating,
+            synopsis: item.content.attributes.synopsis,
+            description: item.content.attributes.description,
+            posters: item.content.attributes.posterImage,
+            covers: item.content.attributes.coverImage,
+          })
 
           offset++
         }
