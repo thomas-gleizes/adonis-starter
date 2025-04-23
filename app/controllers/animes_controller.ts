@@ -6,15 +6,20 @@ import { inject } from '@adonisjs/core'
 export default class AnimesController {
   constructor(private animeService: AnimeService) {}
 
-  index({ request }: HttpContext) {
+  index({ request, inertia }: HttpContext) {
     const query = request.qs()
 
-    console.log('Query', query)
+    const animes = this.animeService.findAll({ offset: query.offset, limit: query.limit })
 
-    return this.animeService
-      .findAll()
-      .limit(query.limit ?? 10)
-      .offset(query.offset ?? 0)
+    return inertia.render('animes/index', { animes })
+  }
+
+  apiIndex({ request }: HttpContext) {
+    const query = request.qs()
+
+    const animes = this.animeService.findAll({ offset: query.offset, limit: query.limit })
+
+    return { records: animes }
   }
 
   show({ params }: HttpContext) {
